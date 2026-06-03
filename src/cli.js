@@ -2,10 +2,16 @@
 import { parseArgs } from 'node:util';
 import { createInterface } from 'node:readline/promises';
 import { stdin, stdout } from 'node:process';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
 import { AGENTS, ALL_AGENT_IDS, COMMANDS } from './agents.js';
 import { init, detectAgents } from './init.js';
 
-const VERSION = '0.1.0';
+// Lê a versão do package.json para nunca dessincronizar.
+const VERSION = JSON.parse(
+  readFileSync(join(dirname(fileURLToPath(import.meta.url)), '..', 'package.json'), 'utf8'),
+).version;
 
 // Cores ANSI mínimas (sem dependência).
 const c = {

@@ -124,6 +124,22 @@ node bin/gherkin-sdd.js init --agents all --cwd /tmp/teste
 
 Sem dependências de runtime — Node puro (>=18).
 
+## Inspiração e créditos
+
+O `gherkin-sdd` foi construído a partir de duas fontes principais:
+
+- **Documentação oficial do Claude** (Anthropic) — as práticas de instruções de
+  projeto (`CLAUDE.md`), slash-commands e desenvolvimento guiado por agentes que
+  moldaram o formato dos comandos e do playbook.
+- **As falas recentes do Uncle Bob** (Robert C. Martin) — sua defesa de que testes
+  e especificação são a mesma coisa, e de que o comportamento esperado deve guiar o
+  código, é o que sustenta a tese central deste projeto: **a spec É Gherkin executável**,
+  apoiada em KISS e YAGNI como disciplina de simplicidade.
+
+Os princípios de Spec-Driven Development dialogam com o
+[spec-kit](https://github.com/github/spec-kit) do GitHub, mas o `gherkin-sdd`
+parte de uma premissa própria: a especificação não é prosa, é comportamento executável.
+
 ## Licença
 
-MIT
+[Apache 2.0](LICENSE) © Jefferson Fabrício
