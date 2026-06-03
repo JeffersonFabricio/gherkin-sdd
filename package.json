@@ -1,10 +1,10 @@
 {
-  "name": "specherkin",
+  "name": "gherkin-sdd",
   "version": "0.1.0",
   "description": "Playbook de AI para desenvolvimento guiado por especificação (SDD) onde a spec É Gherkin executável. Princípios: SDD, Gherkin, KISS e YAGNI. Para Claude Code, GitHub Copilot, Cursor e Gemini.",
   "type": "module",
   "bin": {
-    "specherkin": "bin/specherkin.js"
+    "gherkin-sdd": "bin/gherkin-sdd.js"
   },
   "files": [
     "bin",

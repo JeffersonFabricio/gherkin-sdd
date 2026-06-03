@@ -1,4 +1,4 @@
-// Orquestra o `specherkin init`: detecta agentes, gera arquivos de princípios,
+// Orquestra o `gherkin-sdd init`: detecta agentes, gera arquivos de princípios,
 // comandos e os templates de artefatos no diretório alvo.
 import { mkdir, writeFile, access, readFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
@@ -44,14 +44,14 @@ export async function init({ cwd, agents, force = false, log = () => {} }) {
   // 1) Constituição do projeto e pasta de specs (compartilhados entre agentes).
   const constitution = await readArtifact('constitution.md');
   results.push(
-    await writeFileSafe(join(cwd, '.specherkin', 'constitution.md'), constitution, { force }),
+    await writeFileSafe(join(cwd, '.gherkin-sdd', 'constitution.md'), constitution, { force }),
   );
 
-  // Templates de artefatos ficam em .specherkin/templates para o /specify, /plan etc. copiarem.
+  // Templates de artefatos ficam em .gherkin-sdd/templates para o /specify, /plan etc. copiarem.
   for (const art of ['feature.feature', 'plan.md', 'tasks.md']) {
     const content = await readArtifact(art);
     results.push(
-      await writeFileSafe(join(cwd, '.specherkin', 'templates', art), content, { force }),
+      await writeFileSafe(join(cwd, '.gherkin-sdd', 'templates', art), content, { force }),
     );
   }
 

@@ -11,7 +11,7 @@ simples que os satisfaz (KISS) e nada além (YAGNI).
 `$ARGUMENTS`: caminho da feature. Se vazio, use a mais recente em `specs/`.
 
 ## Faça
-1. Leia `feature.feature` e `.specherkin/constitution.md`. A spec manda; o plano serve.
+1. Leia `feature.feature` e `.gherkin-sdd/constitution.md`. A spec manda; o plano serve.
 2. Escreva `specs/<.../plan.md` cobrindo **somente** o necessário para os cenários:
    - **Stack/decisões**: o que será usado e por quê (respeitando a constituição).
    - **Arquitetura mínima**: componentes e seus papéis. Sem camadas especulativas.

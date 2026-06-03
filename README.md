@@ -1,22 +1,22 @@
-# specherkin
+# gherkin-sdd
 
 > Playbook de IA para desenvolvimento guiado por especificação, onde **a especificação É Gherkin executável**.
 > Princípios: **SDD · Gherkin · KISS · YAGNI**.
 
-`specherkin` instala um playbook completo no seu projeto — princípios + comandos de
+`gherkin-sdd` instala um playbook completo no seu projeto — princípios + comandos de
 workflow — para **Claude Code, GitHub Copilot, Cursor e Gemini CLI**. Em vez de
 user stories soltas, a sua spec é escrita em Gherkin e vira a fonte de verdade do
 comportamento, dos critérios de aceite e dos testes.
 
 ```bash
-npx specherkin init
+npx gherkin-sdd init
 ```
 
 ## Por que
 
 A maioria das ferramentas de Spec-Driven Development (como o
 [spec-kit](https://github.com/github/spec-kit)) trata a spec como prosa. O problema:
-prosa é ambígua e não é executável. O **specherkin** parte de uma premissa diferente:
+prosa é ambígua e não é executável. O **gherkin-sdd** parte de uma premissa diferente:
 
 > **A spec É Gherkin.** Se você não consegue escrever o `Given/When/Then`, você não
 > entendeu o comportamento — e se não entendeu o comportamento, não deveria escrever código.
@@ -36,16 +36,16 @@ Regra de ouro: **toda linha de código deve ser defensável apontando para um ce
 
 ```bash
 # Interativo (detecta os agentes do seu projeto e pergunta)
-npx specherkin init
+npx gherkin-sdd init
 
 # Direto, para agentes específicos
-npx specherkin init --agents claude,copilot
+npx gherkin-sdd init --agents claude,copilot
 
 # Tudo, sobrescrevendo
-npx specherkin init --agents all --force
+npx gherkin-sdd init --agents all --force
 
 # Ver agentes e comandos suportados
-npx specherkin list
+npx gherkin-sdd list
 ```
 
 ### O que é gerado
@@ -54,13 +54,13 @@ npx specherkin list
 |-----------------|-------------------------------------|--------------------------------|
 | Claude Code     | `CLAUDE.md`                         | `.claude/commands/*.md`        |
 | GitHub Copilot  | `.github/copilot-instructions.md`   | `.github/prompts/*.prompt.md`  |
-| Cursor          | `.cursor/rules/specherkin.mdc`      | `.cursor/commands/*.md`        |
+| Cursor          | `.cursor/rules/gherkin-sdd.mdc`      | `.cursor/commands/*.md`        |
 | Gemini CLI      | `GEMINI.md`                         | `.gemini/commands/*.toml`      |
 
 E, compartilhado entre todos:
 
 ```
-.specherkin/
+.gherkin-sdd/
   constitution.md          # princípios específicos do seu projeto
   templates/               # modelos de feature.feature, plan.md, tasks.md
 ```
@@ -106,7 +106,7 @@ primeiro, e `/implement` só escreve código que faz esses cenários passarem.
 
 ## Comparação
 
-| | spec-kit | forge-sdd | **specherkin** |
+| | spec-kit | forge-sdd | **gherkin-sdd** |
 |--|----------|-----------|----------------|
 | Base | — | spec-kit | próprio |
 | Spec | prosa / user stories | prosa | **Gherkin executável** |
@@ -119,7 +119,7 @@ primeiro, e `/implement` só escreve código que faz esses cenários passarem.
 
 ```bash
 node --test          # roda os testes
-node bin/specherkin.js init --agents all --cwd /tmp/teste
+node bin/gherkin-sdd.js init --agents all --cwd /tmp/teste
 ```
 
 Sem dependências de runtime — Node puro (>=18).

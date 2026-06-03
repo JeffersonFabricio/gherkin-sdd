@@ -21,7 +21,7 @@ export async function renderPrinciples(agentId) {
     // Cursor usa frontmatter .mdc para regras sempre-ativas.
     return [
       '---',
-      'description: Playbook specherkin — SDD, Gherkin, KISS, YAGNI',
+      'description: Playbook gherkin-sdd — SDD, Gherkin, KISS, YAGNI',
       'alwaysApply: true',
       '---',
       '',
@@ -36,7 +36,7 @@ export async function renderPrinciples(agentId) {
 export async function renderCommand(agentId, name) {
   const raw = await read(join('commands', `${name}.md`));
   const { frontmatter, body } = splitFrontmatter(raw);
-  const description = frontmatter.description ?? `Comando ${name} do specherkin`;
+  const description = frontmatter.description ?? `Comando ${name} do gherkin-sdd`;
 
   if (agentId === 'gemini') {
     // Gemini CLI: comando custom em TOML, com {{args}} para os argumentos.

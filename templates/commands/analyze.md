@@ -11,7 +11,7 @@ reporta, não corrige (a correção volta pelo comando apropriado).
 `$ARGUMENTS`: caminho da feature. Se vazio, use a mais recente em `specs/`.
 
 ## Faça
-Leia `feature.feature`, `plan.md`, `tasks.md`, `.specherkin/constitution.md` e o
+Leia `feature.feature`, `plan.md`, `tasks.md`, `.gherkin-sdd/constitution.md` e o
 código relacionado. Verifique e reporte:
 
 1. **Cobertura (SDD)**: todo cenário tem tarefa e teste? Liste cenários órfãos.

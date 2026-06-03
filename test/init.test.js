@@ -8,7 +8,7 @@ import { renderCommand, renderPrinciples } from '../src/render.js';
 import { ALL_AGENT_IDS, COMMANDS } from '../src/agents.js';
 
 async function tmp() {
-  return mkdtemp(join(tmpdir(), 'specherkin-'));
+  return mkdtemp(join(tmpdir(), 'gherkin-sdd-'));
 }
 async function exists(p) {
   try { await access(p); return true; } catch { return false; }
@@ -24,9 +24,9 @@ test('init gera princípios e comandos para todos os agentes', async () => {
 
     assert.ok(await exists(join(dir, 'CLAUDE.md')));
     assert.ok(await exists(join(dir, '.github', 'copilot-instructions.md')));
-    assert.ok(await exists(join(dir, '.cursor', 'rules', 'specherkin.mdc')));
+    assert.ok(await exists(join(dir, '.cursor', 'rules', 'gherkin-sdd.mdc')));
     assert.ok(await exists(join(dir, 'GEMINI.md')));
-    assert.ok(await exists(join(dir, '.specherkin', 'constitution.md')));
+    assert.ok(await exists(join(dir, '.gherkin-sdd', 'constitution.md')));
     for (const cmd of COMMANDS) {
       assert.ok(await exists(join(dir, '.claude', 'commands', `${cmd}.md`)));
       assert.ok(await exists(join(dir, '.gemini', 'commands', `${cmd}.toml`)));

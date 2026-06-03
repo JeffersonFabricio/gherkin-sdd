@@ -1,4 +1,4 @@
-# Playbook de IA — specherkin
+# Playbook de IA — gherkin-sdd
 
 > Desenvolvimento guiado por especificação (SDD) onde **a especificação É Gherkin executável**.
 > A spec não descreve o código — ela define o comportamento, e o código existe para satisfazê-la.
@@ -72,7 +72,7 @@ Se você não consegue apontar, ou o código é desnecessário (YAGNI) ou falta 
 ## Artefatos do projeto
 
 ```
-.specherkin/
+.gherkin-sdd/
   constitution.md          # princípios específicos deste projeto (estende este playbook)
 specs/
   <NNN-nome-da-feature>/
@@ -104,7 +104,7 @@ Uma feature está pronta quando:
 
 | Comando         | Faz |
 |-----------------|-----|
-| `/constitution` | Cria/atualiza `.specherkin/constitution.md` com os princípios do projeto. |
+| `/constitution` | Cria/atualiza `.gherkin-sdd/constitution.md` com os princípios do projeto. |
 | `/specify`      | Escreve a spec em Gherkin (`feature.feature`) a partir de uma descrição. |
 | `/clarify`      | Faz perguntas estruturadas para eliminar ambiguidade na spec. |
 | `/plan`         | Define stack, arquitetura e contratos que realizam os cenários. |

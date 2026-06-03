@@ -5,14 +5,14 @@ description: Escreve a especificação de uma feature em Gherkin executável (fe
 # /specify
 
 Você vai transformar uma descrição em linguagem natural numa **especificação Gherkin**.
-Este é o coração do specherkin: a spec É Gherkin, e ela define o comportamento,
+Este é o coração do gherkin-sdd: a spec É Gherkin, e ela define o comportamento,
 não a implementação.
 
 ## Entrada
 `$ARGUMENTS`: descrição da feature em linguagem natural. Se vazia, peça ao usuário.
 
 ## Faça
-1. Leia `.specherkin/constitution.md` para herdar língua, domínio e convenções.
+1. Leia `.gherkin-sdd/constitution.md` para herdar língua, domínio e convenções.
 2. Crie a pasta da feature: `specs/<NNN-nome-em-kebab>/` (NNN = próximo número
    sequencial, ex: `001-login-com-email`).
 3. Escreva `specs/<NNN-.../feature.feature` seguindo as regras de Gherkin do playbook:

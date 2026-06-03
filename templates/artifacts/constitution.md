@@ -1,6 +1,6 @@
 # Constituição do Projeto
 
-> Estende o playbook **specherkin** (SDD · Gherkin · KISS · YAGNI).
+> Estende o playbook **gherkin-sdd** (SDD · Gherkin · KISS · YAGNI).
 > Em conflito, esta constituição vence sobre defaults, mas nunca sobre os 4 princípios.
 
 ## Os 4 princípios neste projeto

@@ -31,7 +31,7 @@ export const AGENTS = {
     id: 'cursor',
     label: 'Cursor',
     // Cursor lê regras em .cursor/rules/*.mdc.
-    principles: '.cursor/rules/specherkin.mdc',
+    principles: '.cursor/rules/gherkin-sdd.mdc',
     commandsDir: '.cursor/commands',
     commandFile: (name) => `.cursor/commands/${name}.md`,
     detect: ['.cursor', '.cursorrules'],

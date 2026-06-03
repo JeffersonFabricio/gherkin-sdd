@@ -1,4 +1,4 @@
-// CLI do specherkin — Node puro, sem dependências externas.
+// CLI do gherkin-sdd — Node puro, sem dependências externas.
 import { parseArgs } from 'node:util';
 import { createInterface } from 'node:readline/promises';
 import { stdin, stdout } from 'node:process';
@@ -16,7 +16,7 @@ const c = {
   yellow: (s) => `\x1b[33m${s}\x1b[0m`,
 };
 
-const BANNER = `${c.bold('specherkin')} ${c.dim('· SDD · Gherkin · KISS · YAGNI')}`;
+const BANNER = `${c.bold('gherkin-sdd')} ${c.dim('· SDD · Gherkin · KISS · YAGNI')}`;
 
 function helpText() {
   return `
@@ -25,7 +25,7 @@ ${BANNER}
 Playbook de IA onde a especificação É Gherkin executável.
 
 ${c.bold('Uso')}
-  npx specherkin <comando> [opções]
+  npx gherkin-sdd <comando> [opções]
 
 ${c.bold('Comandos')}
   init        Instala o playbook (princípios + comandos) no projeto
@@ -39,9 +39,9 @@ ${c.bold('Opções de init')}
   --cwd <dir>        Diretório alvo (padrão: atual)
 
 ${c.bold('Exemplos')}
-  npx specherkin init
-  npx specherkin init --agents claude,copilot
-  npx specherkin init --agents all --force
+  npx gherkin-sdd init
+  npx gherkin-sdd init --agents claude,copilot
+  npx gherkin-sdd init --agents all --force
 `;
 }
 
