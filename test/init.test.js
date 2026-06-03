@@ -19,14 +19,17 @@ test('init gera princípios e comandos para todos os agentes', async () => {
   try {
     const results = await init({ cwd: dir, agents: ALL_AGENT_IDS });
     const written = results.filter((r) => r.status === 'written');
-    // 4 artefatos compartilhados + (1 princípio + 7 comandos) por agente.
-    assert.equal(written.length, 4 + ALL_AGENT_IDS.length * (1 + COMMANDS.length));
+    // 5 artefatos compartilhados (constituição, memória, feature, plan, tasks)
+    // + (1 princípio + N comandos) por agente.
+    assert.equal(written.length, 5 + ALL_AGENT_IDS.length * (1 + COMMANDS.length));
 
     assert.ok(await exists(join(dir, 'CLAUDE.md')));
     assert.ok(await exists(join(dir, '.github', 'copilot-instructions.md')));
     assert.ok(await exists(join(dir, '.cursor', 'rules', 'gherkin-sdd.mdc')));
     assert.ok(await exists(join(dir, 'GEMINI.md')));
-    assert.ok(await exists(join(dir, '.gherkin-sdd', 'constitution.md')));
+    assert.ok(await exists(join(dir, '.gherkin-sdd', 'memory', 'constitution.md')));
+    assert.ok(await exists(join(dir, '.gherkin-sdd', 'memory', 'memory.md')));
+    assert.ok(await exists(join(dir, '.claude', 'commands', 'welcome-gherkin-sdd.md')));
     for (const cmd of COMMANDS) {
       assert.ok(await exists(join(dir, '.claude', 'commands', `${cmd}.md`)));
       assert.ok(await exists(join(dir, '.gemini', 'commands', `${cmd}.toml`)));

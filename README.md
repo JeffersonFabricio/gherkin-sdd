@@ -57,29 +57,47 @@ npx gherkin-sdd list
 | Cursor          | `.cursor/rules/gherkin-sdd.mdc`      | `.cursor/commands/*.md`        |
 | Gemini CLI      | `GEMINI.md`                         | `.gemini/commands/*.toml`      |
 
-E, compartilhado entre todos:
+Cada agente recebe seus arquivos **na pasta nativa da própria ferramenta** —
+Claude em `.claude/`, Copilot em `.github/`, Cursor em `.cursor/`, Gemini em
+`.gemini/`. E a **memória do projeto** (fonte única, lida por todos) fica em:
 
 ```
 .gherkin-sdd/
-  constitution.md          # princípios específicos do seu projeto
+  memory/
+    constitution.md        # princípios do seu projeto (estável)
+    memory.md              # memória viva: decisões, aprendizados, glossário, índice
   templates/               # modelos de feature.feature, plan.md, tasks.md
+```
+
+> Inspirado no `.specify/memory/` do spec-kit: a constituição é estável, a
+> `memory.md` evolui (decisões e contexto vivo, lida no início de cada sessão).
+
+## Comece por aqui
+
+Depois do `init`, **abra a IDE/agente que você escolheu e rode o comando de
+boas-vindas** — ele detecta seu ambiente e conduz o setup **na ordem certa**
+(constituição → memória) antes da primeira feature:
+
+```
+/welcome-gherkin-sdd
 ```
 
 ## O workflow
 
 ```
-/constitution → /specify → /clarify → /plan → /tasks → /implement → /analyze
+/welcome-gherkin-sdd → /constitution → /specify → /clarify → /plan → /tasks → /implement → /analyze
 ```
 
-| Comando         | O que faz |
-|-----------------|-----------|
+| Comando | O que faz |
+| --- | --- |
+| `/welcome-gherkin-sdd` | Onboarding: apresenta os princípios e inicializa a memória do projeto em ordem. |
 | `/constitution` | Define os princípios específicos do projeto (stack, língua, runner de testes). |
-| `/specify`      | Escreve a spec em **Gherkin** (`specs/NNN-feature/feature.feature`). |
-| `/clarify`      | Faz perguntas estruturadas para eliminar ambiguidade da spec. |
-| `/plan`         | Decide a arquitetura mais simples que realiza os cenários. |
-| `/tasks`        | Gera o checklist test-first, cada tarefa amarrada a um cenário. |
-| `/implement`    | Implementa em ordem, test-first, só o que os cenários exigem. |
-| `/analyze`      | Audita a coerência spec ↔ plano ↔ tarefas ↔ código. |
+| `/specify` | Escreve a spec em **Gherkin** (`specs/NNN-feature/feature.feature`). |
+| `/clarify` | Faz perguntas estruturadas para eliminar ambiguidade da spec. |
+| `/plan` | Decide a arquitetura mais simples que realiza os cenários. |
+| `/tasks` | Gera o checklist test-first, cada tarefa amarrada a um cenário. |
+| `/implement` | Implementa em ordem, test-first, só o que os cenários exigem. |
+| `/analyze` | Audita a coerência spec ↔ plano ↔ tarefas ↔ código. |
 
 ### Exemplo de spec (a fonte de verdade)
 

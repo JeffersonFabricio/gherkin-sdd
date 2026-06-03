@@ -27,3 +27,4 @@
 
 ---
 *Edite via `/constitution`. Mantenha curto: KISS aplica-se a este documento.*
+*Decisões e contexto vivo ficam em [`memory.md`](./memory.md) — esta constituição é estável; a memória evolui.*

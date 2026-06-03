@@ -51,7 +51,9 @@ export const AGENTS = {
 export const ALL_AGENT_IDS = Object.keys(AGENTS);
 
 // Os comandos do workflow SDD, em ordem de execução.
+// 'welcome-gherkin-sdd' é o ponto de entrada (onboarding) e vem primeiro.
 export const COMMANDS = [
+  'welcome-gherkin-sdd',
   'constitution',
   'specify',
   'clarify',

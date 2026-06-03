@@ -41,13 +41,16 @@ async function writeFileSafe(path, content, { force }) {
 export async function init({ cwd, agents, force = false, log = () => {} }) {
   const results = [];
 
-  // 1) Constituição do projeto e pasta de specs (compartilhados entre agentes).
-  const constitution = await readArtifact('constitution.md');
-  results.push(
-    await writeFileSafe(join(cwd, '.gherkin-sdd', 'constitution.md'), constitution, { force }),
-  );
+  // 1) Memória do projeto: constituição + memory (fonte única, compartilhada
+  //    entre todos os agentes), espelhando o espírito do spec-kit (.specify/memory).
+  for (const mem of ['constitution.md', 'memory.md']) {
+    const content = await readArtifact(mem);
+    results.push(
+      await writeFileSafe(join(cwd, '.gherkin-sdd', 'memory', mem), content, { force }),
+    );
+  }
 
-  // Templates de artefatos ficam em .gherkin-sdd/templates para o /specify, /plan etc. copiarem.
+  // Templates de artefatos para o /specify, /plan etc. copiarem.
   for (const art of ['feature.feature', 'plan.md', 'tasks.md']) {
     const content = await readArtifact(art);
     results.push(

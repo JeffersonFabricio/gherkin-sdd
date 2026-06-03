@@ -12,7 +12,7 @@ não a implementação.
 `$ARGUMENTS`: descrição da feature em linguagem natural. Se vazia, peça ao usuário.
 
 ## Faça
-1. Leia `.gherkin-sdd/constitution.md` para herdar língua, domínio e convenções.
+1. Leia `.gherkin-sdd/memory/constitution.md` para herdar língua, domínio e convenções.
 2. Crie a pasta da feature: `specs/<NNN-nome-em-kebab>/` (NNN = próximo número
    sequencial, ex: `001-login-com-email`).
 3. Escreva `specs/<NNN-.../feature.feature` seguindo as regras de Gherkin do playbook:
@@ -22,6 +22,8 @@ não a implementação.
    - Use `Scenario Outline` + `Examples` para variações de dados.
    - `@tags` para agrupar (ex: `@critico`, `@v1`).
 4. Marque o que ficou ambíguo com `# TODO(clarify): ...` em vez de adivinhar.
+5. Atualize o **índice de features** em `.gherkin-sdd/memory/memory.md` com a nova
+   feature e o status `especificada`.
 
 ## Saída
 - `specs/<NNN-.../feature.feature`.

@@ -19,10 +19,13 @@ test-first, sem escrever nada que nenhum cenário justifique.
 3. Se descobrir um comportamento não previsto por nenhum cenário:
    - **Pare.** Não improvise. Proponha um cenário e peça `/clarify`/`/specify`.
 4. Ao terminar, rode a suíte completa: **todo cenário do `.feature` deve passar**.
+5. Registre decisões técnicas relevantes e marque a feature como `pronta` no índice,
+   em `.gherkin-sdd/memory/memory.md`.
 
 ## Saída
 - Código implementado e testes passando.
 - `tasks.md` com tarefas concluídas marcadas.
+- `.gherkin-sdd/memory/memory.md` atualizado (decisões + índice).
 - Relato de qualquer cenário que precisou ser adicionado/alterado (e por quê).
 
 ## Não faça

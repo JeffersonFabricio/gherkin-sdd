@@ -73,7 +73,10 @@ Se você não consegue apontar, ou o código é desnecessário (YAGNI) ou falta 
 
 ```
 .gherkin-sdd/
-  constitution.md          # princípios específicos deste projeto (estende este playbook)
+  memory/
+    constitution.md        # princípios específicos deste projeto (estende este playbook)
+    memory.md              # memória viva: decisões, aprendizados, glossário, índice
+  templates/               # modelos copiados pelos comandos (feature/plan/tasks)
 specs/
   <NNN-nome-da-feature>/
     feature.feature        # A SPEC — Gherkin, fonte de verdade
@@ -82,6 +85,7 @@ specs/
     notes.md               # (opcional) clarificações e perguntas resolvidas
 ```
 
+- **Leia `.gherkin-sdd/memory/memory.md` no início de cada sessão** e atualize-o ao decidir algo.
 - `feature.feature` é imutável durante a implementação **exceto** via `/clarify` ou
   uma decisão explícita de mudança de escopo.
 - `plan.md` nunca contradiz a spec; ele a realiza.
@@ -104,7 +108,7 @@ Uma feature está pronta quando:
 
 | Comando         | Faz |
 |-----------------|-----|
-| `/constitution` | Cria/atualiza `.gherkin-sdd/constitution.md` com os princípios do projeto. |
+| `/constitution` | Cria/atualiza `.gherkin-sdd/memory/constitution.md` com os princípios do projeto. |
 | `/specify`      | Escreve a spec em Gherkin (`feature.feature`) a partir de uma descrição. |
 | `/clarify`      | Faz perguntas estruturadas para eliminar ambiguidade na spec. |
 | `/plan`         | Define stack, arquitetura e contratos que realizam os cenários. |
