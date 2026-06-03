@@ -1,0 +1,25 @@
+#!/usr/bin/env sh
+# Bloqueia commits diretos em main/master.
+# Override legítimo (merge/release): ALLOW_MAIN_COMMIT=1 git commit ...
+#
+# Ativado por: git config core.hooksPath .githooks  (ou: npm run setup-hooks)
+
+branch="$(git symbolic-ref --short HEAD 2>/dev/null)"
+
+case "$branch" in
+  main|master)
+    if [ "$ALLOW_MAIN_COMMIT" = "1" ]; then
+      echo "⚠️  Commit em '$branch' permitido via ALLOW_MAIN_COMMIT=1."
+      exit 0
+    fi
+    echo "✋ Commit direto em '$branch' bloqueado."
+    echo ""
+    echo "   Crie uma branch de feature primeiro:"
+    echo "     git switch -c feat/minha-mudanca"
+    echo ""
+    echo "   Override pontual (merge/release): ALLOW_MAIN_COMMIT=1 git commit ..."
+    exit 1
+    ;;
+esac
+
+exit 0

@@ -136,11 +136,44 @@ primeiro, e `/implement` só escreve código que faz esses cenários passarem.
 ## Desenvolvimento
 
 ```bash
+npm run setup-hooks  # ativa os git hooks do repo (uma vez por clone)
 node --test          # roda os testes
 node bin/gherkin-sdd.js init --agents all --cwd /tmp/teste
 ```
 
 Sem dependências de runtime — Node puro (>=18).
+
+### Git hooks: sem commit direto na main/master
+
+O repositório versiona um hook `pre-commit` em [`.githooks/`](.githooks/) que
+**bloqueia commits diretos em `main`/`master`** — o trabalho deve ir sempre por
+uma branch de feature e um PR.
+
+Ative-o uma vez por clone (também roda sozinho no `npm install`, via `prepare`):
+
+```bash
+npm run setup-hooks
+# equivale a: git config core.hooksPath .githooks
+```
+
+Com o hook ativo:
+
+```bash
+git switch main
+git commit -m "..."          # ✋ bloqueado — crie uma branch de feature
+git switch -c feat/minha-mudanca
+git commit -m "..."          # ✓ permitido
+```
+
+Para um caso legítimo na main (ex.: merge ou release local), use o override
+explícito:
+
+```bash
+ALLOW_MAIN_COMMIT=1 git commit -m "release: v1.0.0"
+```
+
+> Isto é uma proteção **local** e complementar à proteção de branch do servidor
+> (GitHub/GitLab) — não substitui as branch protection rules do repositório remoto.
 
 ## Inspiração e créditos
 
