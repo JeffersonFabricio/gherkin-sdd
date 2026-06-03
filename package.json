@@ -1,0 +1,38 @@
+{
+  "name": "gherkin-sdd",
+  "version": "1.0.0",
+  "description": "Playbook de AI para desenvolvimento guiado por especificação (SDD) onde a spec É Gherkin executável. Princípios: SDD, Gherkin, KISS e YAGNI. Para Claude Code, GitHub Copilot, Cursor e Gemini.",
+  "type": "module",
+  "bin": {
+    "gherkin-sdd": "bin/gherkin-sdd.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "templates"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [
+    "sdd",
+    "spec-driven-development",
+    "gherkin",
+    "bdd",
+    "kiss",
+    "yagni",
+    "claude",
+    "claude-code",
+    "copilot",
+    "cursor",
+    "gemini",
+    "ai",
+    "playbook",
+    "spec-kit"
+  ],
+  "author": "Jefferson Fabrício",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=18"
+  }
+}
