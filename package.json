@@ -1,7 +1,7 @@
 {
   "name": "gherkin-sdd",
-  "version": "1.0.0",
-  "description": "Playbook de AI para desenvolvimento guiado por especificação (SDD) onde a spec É Gherkin executável. Princípios: SDD, Gherkin, KISS e YAGNI. Para Claude Code, GitHub Copilot, Cursor e Gemini.",
+  "version": "1.1.0",
+  "description": "AI playbook for spec-driven development (SDD) where the spec IS executable Gherkin. Principles: SDD, Gherkin, KISS, YAGNI. For Claude Code, GitHub Copilot, Cursor, and Gemini. English and Portuguese.",
   "type": "module",
   "bin": {
     "gherkin-sdd": "bin/gherkin-sdd.js"
@@ -9,7 +9,8 @@
   "files": [
     "bin",
     "src",
-    "templates"
+    "templates",
+    "README.pt.md"
   ],
   "scripts": {
     "test": "node --test"

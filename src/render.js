@@ -6,17 +6,21 @@ import { dirname, join } from 'node:path';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const TEMPLATES = join(__dirname, '..', 'templates');
 
-export function templatesDir() {
-  return TEMPLATES;
+// Idiomas suportados pelos templates. O padrão é inglês.
+export const LANGS = ['en', 'pt'];
+export const DEFAULT_LANG = 'en';
+
+export function templatesDir(lang = DEFAULT_LANG) {
+  return join(TEMPLATES, lang);
 }
 
-async function read(rel) {
-  return readFile(join(TEMPLATES, rel), 'utf8');
+async function read(lang, rel) {
+  return readFile(join(TEMPLATES, lang, rel), 'utf8');
 }
 
 // O núcleo de princípios é o mesmo conteúdo; só o cabeçalho/forma muda por agente.
-export async function renderPrinciples(agentId) {
-  const body = await read('principles.md');
+export async function renderPrinciples(agentId, lang = DEFAULT_LANG) {
+  const body = await read(lang, 'principles.md');
   if (agentId === 'cursor') {
     // Cursor usa frontmatter .mdc para regras sempre-ativas.
     return [
@@ -33,8 +37,8 @@ export async function renderPrinciples(agentId) {
 
 // Comandos: o conteúdo neutro vira slash-command (Claude/Cursor), prompt do
 // Copilot, ou wrapper .toml do Gemini.
-export async function renderCommand(agentId, name) {
-  const raw = await read(join('commands', `${name}.md`));
+export async function renderCommand(agentId, name, lang = DEFAULT_LANG) {
+  const raw = await read(lang, join('commands', `${name}.md`));
   const { frontmatter, body } = splitFrontmatter(raw);
   const description = frontmatter.description ?? `Comando ${name} do gherkin-sdd`;
 
@@ -72,8 +76,8 @@ export async function renderCommand(agentId, name) {
   ].join('\n');
 }
 
-export async function readArtifact(name) {
-  return read(join('artifacts', name));
+export async function readArtifact(name, lang = DEFAULT_LANG) {
+  return read(lang, join('artifacts', name));
 }
 
 // Parser mínimo de frontmatter YAML simples (só `chave: valor`).

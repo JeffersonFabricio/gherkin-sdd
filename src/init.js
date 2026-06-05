@@ -1,9 +1,9 @@
 // Orquestra o `gherkin-sdd init`: detecta agentes, gera arquivos de princípios,
 // comandos e os templates de artefatos no diretório alvo.
-import { mkdir, writeFile, access, readFile } from 'node:fs/promises';
+import { mkdir, writeFile, access } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { AGENTS, ALL_AGENT_IDS, COMMANDS } from './agents.js';
-import { renderPrinciples, renderCommand, readArtifact } from './render.js';
+import { renderPrinciples, renderCommand, readArtifact, DEFAULT_LANG } from './render.js';
 
 async function exists(p) {
   try {
@@ -38,13 +38,13 @@ async function writeFileSafe(path, content, { force }) {
 }
 
 // Gera tudo para um conjunto de agentes. Retorna o relatório de arquivos.
-export async function init({ cwd, agents, force = false, log = () => {} }) {
+export async function init({ cwd, agents, lang = DEFAULT_LANG, force = false, log = () => {} }) {
   const results = [];
 
   // 1) Memória do projeto: constituição + memory (fonte única, compartilhada
   //    entre todos os agentes), espelhando o espírito do spec-kit (.specify/memory).
   for (const mem of ['constitution.md', 'memory.md']) {
-    const content = await readArtifact(mem);
+    const content = await readArtifact(mem, lang);
     results.push(
       await writeFileSafe(join(cwd, '.gherkin-sdd', 'memory', mem), content, { force }),
     );
@@ -52,7 +52,7 @@ export async function init({ cwd, agents, force = false, log = () => {} }) {
 
   // Templates de artefatos para o /specify, /plan etc. copiarem.
   for (const art of ['feature.feature', 'plan.md', 'tasks.md']) {
-    const content = await readArtifact(art);
+    const content = await readArtifact(art, lang);
     results.push(
       await writeFileSafe(join(cwd, '.gherkin-sdd', 'templates', art), content, { force }),
     );
@@ -63,11 +63,11 @@ export async function init({ cwd, agents, force = false, log = () => {} }) {
     const agent = AGENTS[id];
     if (!agent) throw new Error(`Agente desconhecido: ${id}`);
 
-    const principles = await renderPrinciples(id);
+    const principles = await renderPrinciples(id, lang);
     results.push(await writeFileSafe(join(cwd, agent.principles), principles, { force }));
 
     for (const cmd of COMMANDS) {
-      const content = await renderCommand(id, cmd);
+      const content = await renderCommand(id, cmd, lang);
       results.push(await writeFileSafe(join(cwd, agent.commandFile(cmd)), content, { force }));
     }
     log(`${agent.label}: princípios + ${COMMANDS.length} comandos`);

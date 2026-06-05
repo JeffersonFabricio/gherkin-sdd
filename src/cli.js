@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { AGENTS, ALL_AGENT_IDS, COMMANDS } from './agents.js';
 import { init, detectAgents } from './init.js';
+import { LANGS, DEFAULT_LANG } from './render.js';
 
 // Lê a versão do package.json para nunca dessincronizar.
 const VERSION = JSON.parse(
@@ -40,13 +41,15 @@ ${c.bold('Comandos')}
 
 ${c.bold('Opções de init')}
   --agents <lista>   Agentes separados por vírgula: ${ALL_AGENT_IDS.join(', ')}, all
+  --lang <idioma>    Idioma do playbook: ${LANGS.join(', ')} (padrão: ${DEFAULT_LANG})
   --force            Sobrescreve arquivos existentes
-  --yes, -y          Não pergunta nada (usa agentes detectados ou todos)
+  --yes, -y          Não pergunta nada (usa agentes detectados ou todos, idioma ${DEFAULT_LANG})
   --cwd <dir>        Diretório alvo (padrão: atual)
 
 ${c.bold('Exemplos')}
   npx gherkin-sdd init
-  npx gherkin-sdd init --agents claude,copilot
+  npx gherkin-sdd init --lang pt
+  npx gherkin-sdd init --agents claude,copilot --lang en
   npx gherkin-sdd init --agents all --force
 `;
 }
@@ -84,6 +87,26 @@ async function promptAgents(detected) {
   }
 }
 
+function resolveLang(arg) {
+  if (!arg) return null;
+  const lang = arg.trim().toLowerCase();
+  if (!LANGS.includes(lang)) {
+    throw new Error(`Idioma inválido: ${arg}. Válidos: ${LANGS.join(', ')}`);
+  }
+  return lang;
+}
+
+async function promptLang() {
+  const rl = createInterface({ input: stdin, output: stdout });
+  try {
+    stdout.write(`\nIdioma do playbook: ${c.cyan(LANGS.join(', '))} (en = English, pt = português)\n`);
+    const ans = await rl.question(`Em qual idioma gerar? [${DEFAULT_LANG}] `);
+    return resolveLang(ans.trim()) ?? DEFAULT_LANG;
+  } finally {
+    rl.close();
+  }
+}
+
 async function cmdInit(values) {
   const cwd = values.cwd ? values.cwd : process.cwd();
   const detected = await detectAgents(cwd);
@@ -97,12 +120,18 @@ async function cmdInit(values) {
     }
   }
 
+  let lang = resolveLang(values.lang);
+  if (!lang) {
+    lang = values.yes ? DEFAULT_LANG : await promptLang();
+  }
+
   stdout.write(`\n${BANNER}\n`);
-  stdout.write(`Instalando para: ${c.cyan(agents.join(', '))}\n\n`);
+  stdout.write(`Instalando para: ${c.cyan(agents.join(', '))} ${c.dim('(' + lang + ')')}\n\n`);
 
   const results = await init({
     cwd,
     agents,
+    lang,
     force: Boolean(values.force),
     log: (m) => stdout.write(`  ${c.green('✓')} ${m}\n`),
   });
@@ -125,6 +154,7 @@ export async function run(argv) {
     allowPositionals: true,
     options: {
       agents: { type: 'string' },
+      lang: { type: 'string' },
       force: { type: 'boolean', default: false },
       yes: { type: 'boolean', short: 'y', default: false },
       cwd: { type: 'string' },
