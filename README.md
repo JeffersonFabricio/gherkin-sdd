@@ -122,17 +122,6 @@ Funcionalidade: Login com e-mail
 A partir daqui, `/plan` escolhe o como, `/tasks` cria os testes desses cenários
 primeiro, e `/implement` só escreve código que faz esses cenários passarem.
 
-## Comparação
-
-| | spec-kit | forge-sdd | **gherkin-sdd** |
-|--|----------|-----------|----------------|
-| Base | — | spec-kit | próprio |
-| Spec | prosa / user stories | prosa | **Gherkin executável** |
-| Princípios explícitos | constitution | constitution | **SDD + Gherkin + KISS + YAGNI no núcleo** |
-| Spec = testes | não diretamente | não diretamente | **sim, por construção** |
-| Idioma | inglês | inglês | **português** |
-| Agentes | 30+ | via spec-kit | Claude, Copilot, Cursor, Gemini |
-
 ## Desenvolvimento
 
 ```bash
@@ -187,9 +176,10 @@ O `gherkin-sdd` foi construído a partir de duas fontes principais:
   código, é o que sustenta a tese central deste projeto: **a spec É Gherkin executável**,
   apoiada em KISS e YAGNI como disciplina de simplicidade.
 
-Os princípios de Spec-Driven Development dialogam com o
-[spec-kit](https://github.com/github/spec-kit) do GitHub, mas o `gherkin-sdd`
-parte de uma premissa própria: a especificação não é prosa, é comportamento executável.
+O `gherkin-sdd` foi baseado no
+[spec-kit](https://github.com/github/spec-kit) do GitHub, herdando dele a
+estrutura de Spec-Driven Development, mas parte de uma premissa própria: a
+especificação não é prosa, é comportamento executável.
 
 ## Licença
 
