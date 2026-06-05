@@ -4,7 +4,7 @@ import { mkdtemp, readFile, access, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { init, detectAgents } from '../src/init.js';
-import { renderCommand, renderPrinciples } from '../src/render.js';
+import { renderCommand, renderPrinciples, readArtifact } from '../src/render.js';
 import { ALL_AGENT_IDS, COMMANDS } from '../src/agents.js';
 
 async function tmp() {
@@ -82,5 +82,42 @@ test('princípios contêm os 4 pilares', async () => {
   const body = await renderPrinciples('claude');
   for (const pilar of ['SDD', 'Gherkin', 'KISS', 'YAGNI']) {
     assert.match(body, new RegExp(pilar));
+  }
+});
+
+test('idioma padrão é inglês (Given/When/Then)', async () => {
+  const feature = await readArtifact('feature.feature');
+  assert.match(feature, /^Feature:/m);
+  assert.match(feature, /^\s*Scenario:/m);
+  assert.match(feature, /Given /);
+});
+
+test('--lang pt gera Gherkin em português (Dado/Quando/Então)', async () => {
+  const feature = await readArtifact('feature.feature', 'pt');
+  assert.match(feature, /^Funcionalidade:/m);
+  assert.match(feature, /^\s*Cenário:/m);
+  assert.match(feature, /Dado que/);
+});
+
+test('init respeita o idioma escolhido', async () => {
+  const dir = await tmp();
+  try {
+    await init({ cwd: dir, agents: ['claude'], lang: 'pt' });
+    const claudeMd = await readFile(join(dir, 'CLAUDE.md'), 'utf8');
+    assert.match(claudeMd, /Desenvolvimento guiado por especificação/);
+
+    const feature = await readFile(join(dir, '.gherkin-sdd', 'templates', 'feature.feature'), 'utf8');
+    assert.match(feature, /Funcionalidade:/);
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+});
+
+test('idioma inexistente faz init falhar (sem template)', async () => {
+  const dir = await tmp();
+  try {
+    await assert.rejects(() => init({ cwd: dir, agents: ['claude'], lang: 'fr' }));
+  } finally {
+    await rm(dir, { recursive: true, force: true });
   }
 });

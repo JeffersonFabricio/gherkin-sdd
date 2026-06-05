@@ -1,196 +1,204 @@
 # gherkin-sdd
 
-> Playbook de IA para desenvolvimento guiado por especificação, onde **a especificação É Gherkin executável**.
-> Princípios: **SDD · Gherkin · KISS · YAGNI**.
+***English** · [Português](README.pt.md)*
 
-`gherkin-sdd` instala um playbook completo no seu projeto — princípios + comandos de
-workflow — para **Claude Code, GitHub Copilot, Cursor e Gemini CLI**. Em vez de
-user stories soltas, a sua spec é escrita em Gherkin e vira a fonte de verdade do
-comportamento, dos critérios de aceite e dos testes.
+> An AI playbook for spec-driven development, where **the specification IS executable Gherkin**.
+> Principles: **SDD · Gherkin · KISS · YAGNI**.
+
+`gherkin-sdd` installs a complete playbook into your project — principles + workflow
+commands — for **Claude Code, GitHub Copilot, Cursor, and Gemini CLI**. Instead of
+loose user stories, your spec is written in Gherkin and becomes the source of truth
+for behavior, acceptance criteria, and tests.
 
 ```bash
 npx gherkin-sdd init
 ```
 
-## Por que
+## Why
 
-A maioria das ferramentas de Spec-Driven Development (como o
-[spec-kit](https://github.com/github/spec-kit)) trata a spec como prosa. O problema:
-prosa é ambígua e não é executável. O **gherkin-sdd** parte de uma premissa diferente:
+Most Spec-Driven Development tools (like
+[spec-kit](https://github.com/github/spec-kit)) treat the spec as prose. The problem:
+prose is ambiguous and not executable. **gherkin-sdd** starts from a different premise:
 
-> **A spec É Gherkin.** Se você não consegue escrever o `Given/When/Then`, você não
-> entendeu o comportamento — e se não entendeu o comportamento, não deveria escrever código.
+> **The spec IS Gherkin.** If you can't write the `Given/When/Then`, you haven't
+> understood the behavior — and if you haven't understood the behavior, you shouldn't be writing code.
 
-Quatro princípios guiam cada fase:
+Four principles guide every phase:
 
-| Princípio | Papel |
-|-----------|-------|
-| **SDD**    | Define o portão: sem cenário, sem código. |
-| **Gherkin**| Define o alvo: os cenários dizem exatamente quando você terminou. |
-| **KISS**   | Define o caminho: a solução mais simples que faz os cenários passarem. |
-| **YAGNI**  | Define a fronteira: pare quando os cenários passam, não vá além. |
+| Principle | Role |
+|-----------|------|
+| **SDD**    | Defines the gate: no scenario, no code. |
+| **Gherkin**| Defines the target: the scenarios say exactly when you're done. |
+| **KISS**   | Defines the path: the simplest solution that makes the scenarios pass. |
+| **YAGNI**  | Defines the boundary: stop when the scenarios pass, go no further. |
 
-Regra de ouro: **toda linha de código deve ser defensável apontando para um cenário.**
+Golden rule: **every line of code must be defensible by pointing to a scenario.**
 
-## Instalação
+## Installation
 
 ```bash
-# Interativo (detecta os agentes do seu projeto e pergunta)
+# Interactive (detects your project's agents and asks for agents + language)
 npx gherkin-sdd init
 
-# Direto, para agentes específicos
+# Direct, for specific agents
 npx gherkin-sdd init --agents claude,copilot
 
-# Tudo, sobrescrevendo
+# In Portuguese (the default is English)
+npx gherkin-sdd init --lang pt
+
+# Everything, overwriting
 npx gherkin-sdd init --agents all --force
 
-# Ver agentes e comandos suportados
+# See supported agents and commands
 npx gherkin-sdd list
 ```
 
-### O que é gerado
+### Language
 
-| Agente          | Princípios                          | Comandos                       |
+The playbook can be generated in **English** (`en`, default) or **Portuguese** (`pt`).
+Use `--lang`:
+
+```bash
+npx gherkin-sdd init --lang en   # default: text and Gherkin (Given/When/Then) in English
+npx gherkin-sdd init --lang pt   # text and Gherkin (Dado/Quando/Então) in Portuguese
+```
+
+In interactive mode, `init` asks for the language (default `en`). The chosen
+language applies to the principles, the commands, and the generated Gherkin examples.
+
+### What gets generated
+
+| Agent           | Principles                          | Commands                       |
 |-----------------|-------------------------------------|--------------------------------|
 | Claude Code     | `CLAUDE.md`                         | `.claude/commands/*.md`        |
 | GitHub Copilot  | `.github/copilot-instructions.md`   | `.github/prompts/*.prompt.md`  |
 | Cursor          | `.cursor/rules/gherkin-sdd.mdc`      | `.cursor/commands/*.md`        |
 | Gemini CLI      | `GEMINI.md`                         | `.gemini/commands/*.toml`      |
 
-Cada agente recebe seus arquivos **na pasta nativa da própria ferramenta** —
-Claude em `.claude/`, Copilot em `.github/`, Cursor em `.cursor/`, Gemini em
-`.gemini/`. E a **memória do projeto** (fonte única, lida por todos) fica em:
+Each agent gets its files **in that tool's own native folder** —
+Claude in `.claude/`, Copilot in `.github/`, Cursor in `.cursor/`, Gemini in
+`.gemini/`. And the **project memory** (single source, read by all) lives in:
 
 ```
 .gherkin-sdd/
   memory/
-    constitution.md        # princípios do seu projeto (estável)
-    memory.md              # memória viva: decisões, aprendizados, glossário, índice
-  templates/               # modelos de feature.feature, plan.md, tasks.md
+    constitution.md        # your project's principles (stable)
+    memory.md              # living memory: decisions, learnings, glossary, index
+  templates/               # models of feature.feature, plan.md, tasks.md
 ```
 
-> Inspirado no `.specify/memory/` do spec-kit: a constituição é estável, a
-> `memory.md` evolui (decisões e contexto vivo, lida no início de cada sessão).
+> Inspired by spec-kit's `.specify/memory/`: the constitution is stable, the
+> `memory.md` evolves (decisions and living context, read at the start of each session).
 
-## Comece por aqui
+## Start here
 
-Depois do `init`, **abra a IDE/agente que você escolheu e rode o comando de
-boas-vindas** — ele detecta seu ambiente e conduz o setup **na ordem certa**
-(constituição → memória) antes da primeira feature:
+After `init`, **open the IDE/agent you chose and run the welcome command** — it
+detects your environment and drives the setup **in the right order**
+(constitution → memory) before your first feature:
 
 ```
 /welcome-gherkin-sdd
 ```
 
-## O workflow
+## The workflow
 
 ```
 /welcome-gherkin-sdd → /constitution → /specify → /clarify → /plan → /tasks → /implement → /analyze
 ```
 
-| Comando | O que faz |
+| Command | What it does |
 | --- | --- |
-| `/welcome-gherkin-sdd` | Onboarding: apresenta os princípios e inicializa a memória do projeto em ordem. |
-| `/constitution` | Define os princípios específicos do projeto (stack, língua, runner de testes). |
-| `/specify` | Escreve a spec em **Gherkin** (`specs/NNN-feature/feature.feature`). |
-| `/clarify` | Faz perguntas estruturadas para eliminar ambiguidade da spec. |
-| `/plan` | Decide a arquitetura mais simples que realiza os cenários. |
-| `/tasks` | Gera o checklist test-first, cada tarefa amarrada a um cenário. |
-| `/implement` | Implementa em ordem, test-first, só o que os cenários exigem. |
-| `/analyze` | Audita a coerência spec ↔ plano ↔ tarefas ↔ código. |
+| `/welcome-gherkin-sdd` | Onboarding: introduces the principles and initializes the project memory in order. |
+| `/constitution` | Defines the project-specific principles (stack, language, test runner). |
+| `/specify` | Writes the spec in **Gherkin** (`specs/NNN-feature/feature.feature`). |
+| `/clarify` | Asks structured questions to remove ambiguity from the spec. |
+| `/plan` | Decides the simplest architecture that realizes the scenarios. |
+| `/tasks` | Generates the test-first checklist, each task tied to a scenario. |
+| `/implement` | Implements in order, test-first, only what the scenarios require. |
+| `/analyze` | Audits the coherence of spec ↔ plan ↔ tasks ↔ code. |
 
-### Exemplo de spec (a fonte de verdade)
+### Example spec (the source of truth)
 
 ```gherkin
-@critico
-Funcionalidade: Login com e-mail
-  Para que eu acesse minha conta com segurança
-  Como usuário cadastrado
-  Eu quero entrar com e-mail e senha
+@critical
+Feature: Email login
+  In order to access my account securely
+  As a registered user
+  I want to sign in with email and password
 
-  Cenário: Login bem-sucedido
-    Dado que existe uma conta para "ana@exemplo.com"
-    Quando ela informa a senha correta
-    Então ela é autenticada e vê o painel
+  Scenario: Successful login
+    Given an account exists for "ana@example.com"
+    When she enters the correct password
+    Then she is authenticated and sees the dashboard
 
-  Cenário: Senha incorreta
-    Dado que existe uma conta para "ana@exemplo.com"
-    Quando ela informa uma senha errada
-    Então o acesso é negado com a mensagem "Credenciais inválidas"
+  Scenario: Wrong password
+    Given an account exists for "ana@example.com"
+    When she enters a wrong password
+    Then access is denied with the message "Invalid credentials"
 ```
 
-A partir daqui, `/plan` escolhe o como, `/tasks` cria os testes desses cenários
-primeiro, e `/implement` só escreve código que faz esses cenários passarem.
+From here, `/plan` chooses the how, `/tasks` writes the tests for these scenarios
+first, and `/implement` only writes code that makes these scenarios pass.
 
-## Comparação
-
-| | spec-kit | forge-sdd | **gherkin-sdd** |
-|--|----------|-----------|----------------|
-| Base | — | spec-kit | próprio |
-| Spec | prosa / user stories | prosa | **Gherkin executável** |
-| Princípios explícitos | constitution | constitution | **SDD + Gherkin + KISS + YAGNI no núcleo** |
-| Spec = testes | não diretamente | não diretamente | **sim, por construção** |
-| Idioma | inglês | inglês | **português** |
-| Agentes | 30+ | via spec-kit | Claude, Copilot, Cursor, Gemini |
-
-## Desenvolvimento
+## Development
 
 ```bash
-npm run setup-hooks  # ativa os git hooks do repo (uma vez por clone)
-node --test          # roda os testes
-node bin/gherkin-sdd.js init --agents all --cwd /tmp/teste
+npm run setup-hooks  # enables the repo's git hooks (once per clone)
+node --test          # runs the tests
+node bin/gherkin-sdd.js init --agents all --cwd /tmp/test
 ```
 
-Sem dependências de runtime — Node puro (>=18).
+No runtime dependencies — pure Node (>=18).
 
-### Git hooks: sem commit direto na main/master
+### Git hooks: no direct commits to main/master
 
-O repositório versiona um hook `pre-commit` em [`.githooks/`](.githooks/) que
-**bloqueia commits diretos em `main`/`master`** — o trabalho deve ir sempre por
-uma branch de feature e um PR.
+The repository versions a `pre-commit` hook in [`.githooks/`](.githooks/) that
+**blocks direct commits to `main`/`master`** — work should always go through a
+feature branch and a PR.
 
-Ative-o uma vez por clone (também roda sozinho no `npm install`, via `prepare`):
+Enable it once per clone (it also runs on its own during `npm install`, via `prepare`):
 
 ```bash
 npm run setup-hooks
-# equivale a: git config core.hooksPath .githooks
+# equivalent to: git config core.hooksPath .githooks
 ```
 
-Com o hook ativo:
+With the hook active:
 
 ```bash
 git switch main
-git commit -m "..."          # ✋ bloqueado — crie uma branch de feature
-git switch -c feat/minha-mudanca
-git commit -m "..."          # ✓ permitido
+git commit -m "..."          # ✋ blocked — create a feature branch
+git switch -c feat/my-change
+git commit -m "..."          # ✓ allowed
 ```
 
-Para um caso legítimo na main (ex.: merge ou release local), use o override
-explícito:
+For a legitimate case on main (e.g. a merge or local release), use the explicit
+override:
 
 ```bash
 ALLOW_MAIN_COMMIT=1 git commit -m "release: v1.0.0"
 ```
 
-> Isto é uma proteção **local** e complementar à proteção de branch do servidor
-> (GitHub/GitLab) — não substitui as branch protection rules do repositório remoto.
+> This is a **local**, complementary protection to the server's branch protection
+> (GitHub/GitLab) — it does not replace the remote repository's branch protection rules.
 
-## Inspiração e créditos
+## Inspiration and credits
 
-O `gherkin-sdd` foi construído a partir de duas fontes principais:
+`gherkin-sdd` was built from two main sources:
 
-- **Documentação oficial do Claude** (Anthropic) — as práticas de instruções de
-  projeto (`CLAUDE.md`), slash-commands e desenvolvimento guiado por agentes que
-  moldaram o formato dos comandos e do playbook.
-- **As falas recentes do Uncle Bob** (Robert C. Martin) — sua defesa de que testes
-  e especificação são a mesma coisa, e de que o comportamento esperado deve guiar o
-  código, é o que sustenta a tese central deste projeto: **a spec É Gherkin executável**,
-  apoiada em KISS e YAGNI como disciplina de simplicidade.
+- **Claude's official documentation** (Anthropic) — the practices for project
+  instructions (`CLAUDE.md`), slash commands, and agent-driven development that
+  shaped the format of the commands and the playbook.
+- **Uncle Bob's recent talks** (Robert C. Martin) — his argument that tests
+  and specification are the same thing, and that the expected behavior should guide
+  the code, is what underpins this project's central thesis: **the spec IS executable
+  Gherkin**, supported by KISS and YAGNI as a discipline of simplicity.
 
-Os princípios de Spec-Driven Development dialogam com o
-[spec-kit](https://github.com/github/spec-kit) do GitHub, mas o `gherkin-sdd`
-parte de uma premissa própria: a especificação não é prosa, é comportamento executável.
+`gherkin-sdd` was based on GitHub's
+[spec-kit](https://github.com/github/spec-kit), inheriting its
+Spec-Driven Development structure, but starts from its own premise: the
+specification is not prose, it is executable behavior.
 
-## Licença
+## License
 
 [Apache 2.0](LICENSE) © Jefferson Fabrício
