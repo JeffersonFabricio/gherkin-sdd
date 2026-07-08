@@ -196,7 +196,7 @@ primeiro, e `/implement` só escreve código que faz esses cenários passarem.
 ```bash
 npm run setup-hooks  # ativa os git hooks do repo (uma vez por clone)
 node --test          # roda os testes
-node bin/gherkin-sdd.js init --agents all --cwd /tmp/teste
+node bin/gherkin-sdd.js init --agents all --lang pt --cwd /tmp/teste
 ```
 
 Sem dependências de runtime — Node puro (>=18).
