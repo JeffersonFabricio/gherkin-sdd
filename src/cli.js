@@ -143,9 +143,10 @@ async function cmdInit(values) {
   if (skipped) stdout.write(`, ${c.yellow(skipped + ' já existiam')} (use --force para sobrescrever)`);
   stdout.write('\n\n');
   stdout.write(`${c.bold('Próximos passos')}\n`);
-  stdout.write(`  1. Abra seu agente de IA e rode ${c.green('/constitution')} para configurar o projeto.\n`);
-  stdout.write(`  2. ${c.green('/specify')} para escrever a primeira spec em Gherkin.\n`);
-  stdout.write(`  3. ${c.green('/clarify → /plan → /tasks → /implement → /analyze')}.\n\n`);
+  stdout.write(`  1. Abra seu agente de IA e rode ${c.green('/welcome-gherkin-sdd')} para o onboarding (constituição → memória).\n`);
+  stdout.write(`  2. ${c.green('/specify')} para escrever a primeira spec em Gherkin (ou ${c.green('/discovery')} antes, se o problema ainda estiver nebuloso).\n`);
+  stdout.write(`  3. ${c.green('/clarify → /plan → /tasks → /implement → /analyze')}.\n`);
+  stdout.write(`  ${c.dim('Nas próximas sessões, comece por')} ${c.green('/status')} ${c.dim('para retomar de onde parou.')}\n\n`);
 }
 
 export async function run(argv) {

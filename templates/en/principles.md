@@ -104,7 +104,26 @@ A feature is done when:
 
 ---
 
+## The three roles
+
+Whatever the task, you are always acting in one of three roles. Name the role you
+are in when it isn't obvious:
+
+- **Orchestrator** — reads the memory, holds the context, and decides the single
+  next action. This is where a session starts (`/status`, `/welcome-gherkin-sdd`).
+- **Builder** — turns scenarios into the simplest code that makes them pass,
+  test-first, nothing more (`/implement`).
+- **Reviewer** — validates coherence and guards against regressions and excess
+  (`/analyze`, `/doctor`).
+
+The roles don't change the principles; they say *from which stance* you are applying
+them right now.
+
+---
+
 ## Workflow commands
+
+Core loop (per feature):
 
 | Command         | Does |
 |-----------------|------|
@@ -115,6 +134,16 @@ A feature is done when:
 | `/tasks`        | Generates the test-first checklist, each task tied to scenarios. |
 | `/implement`    | Executes the tasks; only writes code covered by a scenario. |
 | `/analyze`      | Checks consistency between spec ↔ plan ↔ tasks ↔ code. |
+
+Session & project (as needed):
+
+| Command            | Does |
+|--------------------|------|
+| `/status`          | At session start: reads the memory and points to the one next action. |
+| `/discovery`       | Structured problem framing before `/specify`, ending in candidate scenarios. |
+| `/split`           | Breaks a feature that grew too big (>~7 tasks) into smaller, decoupled ones. |
+| `/c4-architecture` | Generates a Mermaid C4 view reflecting the system the specs actually describe. |
+| `/doctor`          | Diagnoses structure integrity, stale placeholders, and spec ↔ memory drift. |
 
 > At any phase, if you are tempted to add something no scenario asks for,
 > **don't add it** — propose a new scenario and let the user decide.

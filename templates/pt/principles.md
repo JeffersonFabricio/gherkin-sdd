@@ -104,7 +104,26 @@ Uma feature está pronta quando:
 
 ---
 
+## Os três papéis
+
+Seja qual for a tarefa, você está sempre atuando em um de três papéis. Diga em qual
+papel está quando não for óbvio:
+
+- **Orquestrador** — lê a memória, mantém o contexto e decide a única próxima ação.
+  É aqui que a sessão começa (`/status`, `/welcome-gherkin-sdd`).
+- **Construtor** — transforma cenários no código mais simples que os faz passar,
+  test-first, nada além (`/implement`).
+- **Revisor** — valida coerência e protege contra regressões e excesso
+  (`/analyze`, `/doctor`).
+
+Os papéis não mudam os princípios; eles dizem *de qual postura* você os está
+aplicando agora.
+
+---
+
 ## Comandos do workflow
+
+Loop principal (por feature):
 
 | Comando         | Faz |
 |-----------------|-----|
@@ -115,6 +134,16 @@ Uma feature está pronta quando:
 | `/tasks`        | Gera o checklist test-first, cada tarefa amarrada a cenários. |
 | `/implement`    | Executa as tarefas; só escreve código coberto por cenário. |
 | `/analyze`      | Verifica consistência entre spec ↔ plano ↔ tarefas ↔ código. |
+
+Sessão & projeto (conforme a necessidade):
+
+| Comando            | Faz |
+|--------------------|-----|
+| `/status`          | No início da sessão: lê a memória e aponta a única próxima ação. |
+| `/discovery`       | Enquadramento estruturado do problema antes do `/specify`, terminando em cenários candidatos. |
+| `/split`           | Quebra uma feature que cresceu demais (>~7 tarefas) em outras menores e desacopladas. |
+| `/c4-architecture` | Gera uma visão C4 em Mermaid refletindo o sistema que as specs de fato descrevem. |
+| `/doctor`          | Diagnostica integridade da estrutura, placeholders esquecidos e desvios spec ↔ memória. |
 
 > Em qualquer fase, se você for tentado a adicionar algo que nenhum cenário pede,
 > **não adicione** — proponha um novo cenário e deixe o usuário decidir.

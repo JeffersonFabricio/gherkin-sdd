@@ -37,10 +37,13 @@ artifacts live:
 
 ## 4. Next step
 Guide them: from here on, every feature starts with `/specify` (write the spec in
-Gherkin) and follows `/clarify → /plan → /tasks → /implement → /analyze`.
+Gherkin) and follows `/clarify → /plan → /tasks → /implement → /analyze`. When the
+problem is still fuzzy, run `/discovery` first to frame it. And **future sessions
+begin with `/status`**, which reloads the memory and points to the next action.
 
 ## Rules
 - **One question at a time** in the setup steps; don't make the user fill out a
   giant form (KISS).
 - Don't invent project rules nobody asked for (YAGNI).
-- Always **read** `memory.md` at the start of future sessions and **update it** whenever you decide something.
+- Always **read** `memory.md` at the start of future sessions (that's what `/status`
+  does) and **update it** whenever you decide something.

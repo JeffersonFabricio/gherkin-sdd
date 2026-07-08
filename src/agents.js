@@ -52,13 +52,21 @@ export const ALL_AGENT_IDS = Object.keys(AGENTS);
 
 // Os comandos do workflow SDD, em ordem de execução.
 // 'welcome-gherkin-sdd' é o ponto de entrada (onboarding) e vem primeiro.
+// O loop principal por feature é specify → clarify → plan → tasks → implement →
+// analyze; os demais (status, discovery, c4-architecture, split, doctor) são
+// comandos de sessão/projeto usados conforme a necessidade.
 export const COMMANDS = [
   'welcome-gherkin-sdd',
   'constitution',
+  'status',
+  'discovery',
   'specify',
   'clarify',
   'plan',
+  'c4-architecture',
   'tasks',
+  'split',
   'implement',
   'analyze',
+  'doctor',
 ];

@@ -39,6 +39,19 @@ test('init gera princípios e comandos para todos os agentes', async () => {
   }
 });
 
+test('workflow inclui os comandos de sessão/projeto e eles renderizam', async () => {
+  for (const cmd of ['status', 'discovery', 'split', 'doctor', 'c4-architecture']) {
+    assert.ok(COMMANDS.includes(cmd), `COMMANDS deve incluir ${cmd}`);
+    // Renderiza em en e pt, para Claude (md) e Gemini (toml).
+    for (const lang of ['en', 'pt']) {
+      const md = await renderCommand('claude', cmd, lang);
+      assert.match(md, new RegExp(`# /${cmd}`));
+      const toml = await renderCommand('gemini', cmd, lang);
+      assert.match(toml, /^description = /m);
+    }
+  }
+});
+
 test('init não sobrescreve sem --force, mas sobrescreve com --force', async () => {
   const dir = await tmp();
   try {
