@@ -102,6 +102,8 @@ boas-vindas** — ele detecta seu ambiente e conduz o setup **na ordem certa**
 
 ## O workflow
 
+O loop principal, por feature:
+
 ```
 /welcome-gherkin-sdd → /constitution → /specify → /clarify → /plan → /tasks → /implement → /analyze
 ```
@@ -116,6 +118,25 @@ boas-vindas** — ele detecta seu ambiente e conduz o setup **na ordem certa**
 | `/tasks` | Gera o checklist test-first, cada tarefa amarrada a um cenário. |
 | `/implement` | Implementa em ordem, test-first, só o que os cenários exigem. |
 | `/analyze` | Audita a coerência spec ↔ plano ↔ tarefas ↔ código. |
+
+### Comandos de sessão & projeto
+
+Usados conforme a necessidade, ao redor do loop principal:
+
+| Comando | O que faz |
+| --- | --- |
+| `/status` | Início de cada sessão: recarrega a memória e aponta a única próxima ação. |
+| `/discovery` | Enquadramento guiado do problema antes do `/specify`, terminando em Dado/Quando/Então candidatos. |
+| `/split` | Quebra uma feature que cresceu demais (>~7 tarefas) em features menores e desacopladas. |
+| `/c4-architecture` | Gera uma visão C4 em Mermaid que reflete o sistema que as specs de fato descrevem. |
+| `/doctor` | Diagnostica integridade da estrutura, placeholders esquecidos e desvios spec ↔ memória. |
+
+### Três papéis
+
+Seja qual for o comando, a IA atua em uma de três posturas — **Orquestrador**
+(lê a memória e decide a próxima ação: `/status`, `/welcome-gherkin-sdd`),
+**Construtor** (transforma cenários no código mais simples que passa: `/implement`)
+e **Revisor** (protege a coerência contra regressões e excesso: `/analyze`, `/doctor`).
 
 ### Exemplo de spec (a fonte de verdade)
 

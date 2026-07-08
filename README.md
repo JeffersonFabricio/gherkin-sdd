@@ -102,6 +102,8 @@ detects your environment and drives the setup **in the right order**
 
 ## The workflow
 
+The core loop, per feature:
+
 ```
 /welcome-gherkin-sdd → /constitution → /specify → /clarify → /plan → /tasks → /implement → /analyze
 ```
@@ -116,6 +118,25 @@ detects your environment and drives the setup **in the right order**
 | `/tasks` | Generates the test-first checklist, each task tied to a scenario. |
 | `/implement` | Implements in order, test-first, only what the scenarios require. |
 | `/analyze` | Audits the coherence of spec ↔ plan ↔ tasks ↔ code. |
+
+### Session & project commands
+
+Used as needed, around the core loop:
+
+| Command | What it does |
+| --- | --- |
+| `/status` | Start of every session: reloads the memory and points to the single next action. |
+| `/discovery` | Guided problem framing before `/specify`, ending in candidate Given/When/Then. |
+| `/split` | Breaks a feature that grew too big (>~7 tasks) into smaller, decoupled features. |
+| `/c4-architecture` | Generates a Mermaid C4 view that reflects the system the specs actually describe. |
+| `/doctor` | Diagnoses structure integrity, stale placeholders, and spec ↔ memory drift. |
+
+### Three roles
+
+Whatever the command, the AI acts in one of three stances — **Orchestrator**
+(reads the memory and decides the next action: `/status`, `/welcome-gherkin-sdd`),
+**Builder** (turns scenarios into the simplest passing code: `/implement`), and
+**Reviewer** (guards coherence against regressions and excess: `/analyze`, `/doctor`).
 
 ### Example spec (the source of truth)
 

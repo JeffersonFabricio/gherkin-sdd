@@ -37,10 +37,13 @@ artefatos vivem:
 
 ## 4. Próximo passo
 Oriente: a partir daqui, toda feature começa em `/specify` (escrever a spec em
-Gherkin) e segue `/clarify → /plan → /tasks → /implement → /analyze`.
+Gherkin) e segue `/clarify → /plan → /tasks → /implement → /analyze`. Quando o
+problema ainda estiver nebuloso, rode `/discovery` antes para enquadrá-lo. E as
+**futuras sessões começam com `/status`**, que recarrega a memória e aponta a próxima ação.
 
 ## Regras
 - **Uma pergunta de cada vez** nas etapas de setup; não faça o usuário responder um
   formulário gigante (KISS).
 - Não invente regras de projeto que ninguém pediu (YAGNI).
-- Sempre **leia** `memory.md` no início de futuras sessões e **atualize-o** ao decidir algo.
+- Sempre **leia** `memory.md` no início de futuras sessões (é o que o `/status`
+  faz) e **atualize-o** ao decidir algo.
