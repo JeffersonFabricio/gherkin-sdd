@@ -91,6 +91,14 @@ test('render do Cursor marca a regra como alwaysApply', async () => {
   assert.match(mdc, /alwaysApply: true/);
 });
 
+test('princípios contêm a seção de orçamento de contexto (en + pt)', async () => {
+  const en = await renderPrinciples('claude', 'en');
+  assert.match(en, /## Context budget/);
+
+  const pt = await renderPrinciples('claude', 'pt');
+  assert.match(pt, /## Orçamento de contexto/);
+});
+
 test('princípios contêm os 4 pilares', async () => {
   const body = await renderPrinciples('claude');
   for (const pilar of ['SDD', 'Gherkin', 'KISS', 'YAGNI']) {

@@ -138,6 +138,35 @@ Whatever the command, the AI acts in one of three stances — **Orchestrator**
 **Builder** (turns scenarios into the simplest passing code: `/implement`), and
 **Reviewer** (guards coherence against regressions and excess: `/analyze`, `/doctor`).
 
+### Context budget
+
+KISS and YAGNI also apply to how much context the AI loads to do the work — read
+the slice that answers the question, not the whole project every time. This is
+baked into the principles (see `CLAUDE.md`/`GEMINI.md`/etc. after `init`), plus a
+few concrete habits worth adopting regardless of agent:
+
+- **Search first, read second.** Grep/search for the symbol or term before opening
+  whole files to find where something lives.
+- **`memory.md` is a log, not a working set.** It's append-only by design, so it
+  only grows — pull the *Current state* and *Feature index* sections instead of
+  re-reading the full decisions history every session (that's exactly what
+  `/status` and `/doctor` are scoped to do).
+- **Isolate large, disposable searches.** A broad sweep (scanning many files, or a
+  large log, for one fact) belongs in a sub-agent/sub-task whose only output is the
+  answer — not inline in the main session, where every file it touched stays loaded.
+  In Claude Code, this is the `Task`/general-purpose agent tool; other agents have
+  an equivalent (a scoped sub-chat or a script you run and read the output of).
+  Claude Code also caches repeated prompt prefixes automatically — session
+  continuity (`/status`) benefits more from that cache than from replaying context by hand.
+- **Match the model to the step.** Mechanical work (formatting, a fixed rename,
+  running a linter) doesn't need the same reasoning tier as designing a plan or
+  resolving an ambiguous scenario — use your agent's cheaper/faster model option
+  for those steps when it has one.
+
+> The goal is never to under-read what a step genuinely needs — an `/implement`
+> that guesses at behavior because it skipped the spec violates SDD. The goal is
+> to stop paying for context nothing downstream will use.
+
 ### Example spec (the source of truth)
 
 ```gherkin

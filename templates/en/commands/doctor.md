@@ -17,6 +17,8 @@ Check and report on:
 2. **Placeholders** — does `constitution.md` still contain unfilled `<placeholders>`?
 3. **Index ↔ disk drift** — every feature in the `memory.md` index has a folder in
    `specs/`, and every `specs/` folder appears in the index, with a matching status.
+   (You only need the **Feature index** section of `memory.md` for this, not the
+   full decisions log.)
 4. **Spec integrity** — each active feature has a `feature.feature`; specs with a
    plan/tasks but no scenarios, or scenarios with no task, are flagged.
 5. **Context hygiene** — is `memory.md` getting long or full of stale entries that
