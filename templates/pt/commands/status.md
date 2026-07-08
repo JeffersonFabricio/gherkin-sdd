@@ -9,10 +9,12 @@ do projeto, entenda onde as coisas estão e aponte a única próxima ação. Est
 comando **somente leitura** — ele orienta, não altera arquivos.
 
 ## Faça
-1. Leia `.gherkin-sdd/memory/constitution.md` e `.gherkin-sdd/memory/memory.md`.
-   Se algum estiver ausente ou ainda cheio de `<placeholders>`, avise e encaminhe
-   para `/welcome-gherkin-sdd`.
-2. Leia o **índice de features** no `memory.md` e confronte com `specs/`:
+1. Leia `.gherkin-sdd/memory/constitution.md` e, do `memory.md`, as seções
+   **Estado atual** e **Índice de features** — não o log de decisões inteiro
+   (orçamento de contexto: este comando roda toda sessão, mantenha-o barato).
+   Se algum arquivo estiver ausente ou ainda cheio de `<placeholders>`, avise e
+   encaminhe para `/welcome-gherkin-sdd`.
+2. Confronte o **índice de features** com `specs/`:
    - Qual feature está em andamento? Qual o status (rascunho · especificada · em
      implementação · pronta)?
    - Na feature ativa, dê uma olhada em `feature.feature`, `plan.md` e `tasks.md`

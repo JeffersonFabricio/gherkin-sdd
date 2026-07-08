@@ -121,6 +121,40 @@ aplicando agora.
 
 ---
 
+## Orçamento de contexto
+
+KISS e YAGNI valem para a sua própria janela de contexto, não só para o código. Ler
+tudo "por via das dúvidas" é o mesmo erro de construir para um futuro que ainda não
+chegou. Carregue só o que o passo atual precisa:
+
+- **Busque antes de ler.** Para achar onde algo vive, faça `grep`/busca pelo símbolo,
+  termo ou nome do cenário primeiro. Não abra arquivos inteiros para localizar uma coisa.
+- **Leia a fatia, não o arquivo.** O `/implement` precisa do cenário da tarefa atual
+  e do seu item de checklist — não do histórico inteiro do `memory.md` nem de toda
+  decisão passada. Cite a seção que usou, não "li o arquivo todo".
+- **Trate o `memory.md` como log, não como conjunto de trabalho.** Ele é append-only
+  por design (§ Artefatos do projeto), o que significa que só cresce. Reler do
+  início ao fim toda sessão é a fonte mais comum de contexto desperdiçado — puxe o
+  **Estado atual** e as entradas relevantes à feature em questão; pule a cauda
+  histórica a menos que esteja auditando especificamente.
+- **Não busque de novo o que já está na conversa.** Se um arquivo foi lido nesta
+  sessão e nada mudou desde então, reaproveite o que já tem em vez de reler "por
+  garantia".
+- **Delegue buscas grandes e descartáveis.** Uma exploração ampla (varrer muitos
+  arquivos atrás de um padrão, ler um log grande para extrair um fato) pertence a
+  uma sub-tarefa isolada cuja única saída é a resposta — não inline no contexto
+  principal, onde cada arquivo aberto fica carregado pelo resto da sessão.
+- **Combine o modelo com o passo.** Trabalho mecânico e bem definido (formatação,
+  rodar um linter, renomear por uma regra fixa) não precisa do mesmo orçamento de
+  raciocínio que desenhar um plano ou resolver um cenário ambíguo. Prefira a
+  ferramenta mais barata que resolve o passo de forma confiável.
+
+Isto não é um mandato para pular contexto que você realmente precisa — um
+`/implement` mal informado que inventa comportamento viola o SDD. É um mandato para
+parar de pagar por contexto que nada a jusante vai usar.
+
+---
+
 ## Comandos do workflow
 
 Loop principal (por feature):

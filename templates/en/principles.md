@@ -121,6 +121,40 @@ them right now.
 
 ---
 
+## Context budget
+
+KISS and YAGNI apply to your own context window, not just to the code. Reading
+everything "just in case" is the same mistake as building for a future that hasn't
+arrived. Load only what the current step needs:
+
+- **Search before you read.** To find where something lives, `grep`/search for the
+  symbol, term, or scenario name first. Don't open whole files to locate one thing.
+- **Read the slice, not the file.** `/implement` needs the current task's scenario
+  and its own checklist item — not the full `memory.md` history or every past
+  decision. Cite the section you used, not "I read the whole file."
+- **Treat `memory.md` as a log, not a working set.** It's append-only by design
+  (§ Project artifacts), which means it only grows. Re-reading it end-to-end every
+  session is the most common source of wasted context — pull the **Current state**
+  and the entries relevant to the feature at hand; skip the historical tail unless
+  you're specifically auditing it.
+- **Don't re-fetch what's already in the conversation.** If a file was read this
+  session and nothing since touched it, reuse what you already have instead of
+  reading it again "to be safe."
+- **Delegate large, disposable searches.** A broad exploration (scanning many files
+  to find a pattern, reading a large log to extract one fact) belongs in an isolated
+  sub-task whose only output is the answer — not inline in the main context, where
+  every file it opened stays loaded for the rest of the session.
+- **Match the model to the step.** Mechanical, well-defined work (formatting,
+  running a linter, renaming per a fixed rule) doesn't need the same reasoning
+  budget as designing a plan or resolving an ambiguous scenario. Prefer the
+  cheapest tool that reliably does the step.
+
+This is not a mandate to skip context you actually need — an under-informed
+`/implement` that invents behavior violates SDD. It's a mandate to stop paying for
+context nothing downstream will use.
+
+---
+
 ## Workflow commands
 
 Core loop (per feature):

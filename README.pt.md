@@ -138,6 +138,36 @@ Seja qual for o comando, a IA atua em uma de três posturas — **Orquestrador**
 **Construtor** (transforma cenários no código mais simples que passa: `/implement`)
 e **Revisor** (protege a coerência contra regressões e excesso: `/analyze`, `/doctor`).
 
+### Orçamento de contexto
+
+KISS e YAGNI também valem para quanto contexto a IA carrega pra fazer o trabalho —
+leia a fatia que responde a pergunta, não o projeto inteiro toda vez. Isso já vem
+embutido nos princípios (veja `CLAUDE.md`/`GEMINI.md`/etc. após o `init`), além de
+alguns hábitos concretos que valem independente do agente:
+
+- **Busque primeiro, leia depois.** Faça grep/busca pelo símbolo ou termo antes de
+  abrir arquivos inteiros para localizar onde algo vive.
+- **`memory.md` é log, não conjunto de trabalho.** Ele é append-only por design,
+  então só cresce — puxe as seções *Estado atual* e *Índice de features* em vez de
+  reler o histórico de decisões inteiro toda sessão (é exatamente para isso que
+  `/status` e `/doctor` são escopados).
+- **Isole buscas grandes e descartáveis.** Uma varredura ampla (escanear muitos
+  arquivos, ou um log grande, atrás de um fato) pertence a um sub-agente/sub-tarefa
+  cuja única saída é a resposta — não inline na sessão principal, onde cada arquivo
+  tocado fica carregado. No Claude Code, isso é a ferramenta de agente
+  `Task`/general-purpose; outros agentes têm um equivalente (um sub-chat escopado
+  ou um script que você roda e lê a saída). O Claude Code também faz cache
+  automático de prefixos de prompt repetidos — a continuidade de sessão (`/status`)
+  se beneficia mais desse cache do que de reencenar contexto na mão.
+- **Combine o modelo com o passo.** Trabalho mecânico (formatação, um rename fixo,
+  rodar um linter) não precisa do mesmo nível de raciocínio que desenhar um plano
+  ou resolver um cenário ambíguo — use a opção de modelo mais barata/rápida do seu
+  agente para esses passos, quando ele tiver uma.
+
+> O objetivo nunca é ler de menos o que um passo genuinamente precisa — um
+> `/implement` que chuta comportamento porque pulou a spec viola o SDD. O objetivo
+> é parar de pagar por contexto que nada a jusante vai usar.
+
 ### Exemplo de spec (a fonte de verdade)
 
 ```gherkin

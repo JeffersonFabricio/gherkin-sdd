@@ -17,6 +17,8 @@ Verifique e reporte:
 2. **Placeholders** — `constitution.md` ainda contém `<placeholders>` não preenchidos?
 3. **Desvio índice ↔ disco** — toda feature no índice do `memory.md` tem pasta em
    `specs/`, e toda pasta em `specs/` aparece no índice, com status coerente.
+   (Basta a seção **Índice de features** do `memory.md` para isto, não o log de
+   decisões inteiro.)
 4. **Integridade da spec** — toda feature ativa tem `feature.feature`; specs com
    plano/tarefas mas sem cenários, ou cenários sem tarefa, são sinalizados.
 5. **Higiene de contexto** — o `memory.md` está ficando longo ou cheio de entradas
