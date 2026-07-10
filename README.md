@@ -1,6 +1,6 @@
 # gherkin-sdd
 
-***English** · [Português](README.pt.md)*
+***English** · [Português](https://github.com/JeffersonFabricio/gherkin-sdd/blob/main/README.pt.md)*
 
 > An AI playbook for spec-driven development, where **the specification IS executable Gherkin**.
 > Principles: **SDD · Gherkin · KISS · YAGNI**.
