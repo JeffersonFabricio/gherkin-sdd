@@ -1,6 +1,6 @@
 # gherkin-sdd
 
-*[English](README.md) · **Português***
+*[English](https://github.com/JeffersonFabricio/gherkin-sdd/blob/main/README.md) · **Português***
 
 > Playbook de IA para desenvolvimento guiado por especificação, onde **a especificação É Gherkin executável**.
 > Princípios: **SDD · Gherkin · KISS · YAGNI**.
